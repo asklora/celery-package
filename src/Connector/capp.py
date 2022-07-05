@@ -22,11 +22,32 @@ class Worker(Celery):
         cls,
         node_name,
         app_name,
-        worker_queue_name,
-        tasks_modules: list[str],
+        worker_queue_name : str = "asklora",
+        tasks_modules: list[str] = [],
         broker_url: str = "pyamqp://rabbitmq:rabbitmq@localhost//",
         result_backend: str = "redis://localhost",
     ) -> Celery:
+        """
+        For example if you have a directory layout like this:
+
+        .. code-block:: text
+
+            foo/__init__.py
+               tasks.py
+
+            bar/__init__.py
+                tasks.py
+
+            baz/__init__.py
+                tasks.py
+        
+
+        it will register all tasks in the tasks.py file in the directory.
+        any function with decorator @celery.task will be regitered as a task.
+
+        example:
+            Worker.create('node_name','app name','queue name', ['foo' , 'bar' , 'baz'])
+        """
         if node_name.isspace():
             raise ValueError("Node name cannot use whitespace")
         Capp = cls(app_name)
@@ -36,6 +57,7 @@ class Worker(Celery):
         Capp.conf.task_default_queue = worker_queue_name
         HostNameStep.hostname = node_name
         Capp.steps["worker"].add(HostNameStep)
-        cls.init_modules(tasks_modules)
-        Capp.autodiscover_tasks(tasks_modules)
+        if tasks_modules:
+            cls.init_modules(tasks_modules)
+            Capp.autodiscover_tasks(tasks_modules)
         return Capp

@@ -2,8 +2,8 @@ import setuptools
 from setuptools import find_packages
 
 # Load the README and requirements
-# with open("README.md", "r", encoding="utf-8") as f:
-#     long_description = f.read()
+with open("README.md", "r", encoding="utf-8") as f:
+    long_description = f.read()
 
 with open("requirements.txt", "r", encoding="utf-8") as f:
     required = f.read().splitlines()
@@ -12,7 +12,7 @@ setuptools.setup(
     name="WorkerConnector",
     version="0.0.1",
     description="Python client for connecting to LORA Technologies message queue",
-    # long_description=long_description,
+    long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://asklora.ai",
     license="MIT",
