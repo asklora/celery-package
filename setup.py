@@ -10,7 +10,7 @@ with open("requirements.txt", "r", encoding="utf-8") as f:
 
 setuptools.setup(
     name="WorkerConnector",
-    version="0.0.1",
+    version="0.0.4",
     description="Python client for connecting to LORA Technologies message queue",
     long_description=long_description,
     long_description_content_type="text/markdown",
