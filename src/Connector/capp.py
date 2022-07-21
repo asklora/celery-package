@@ -1,12 +1,14 @@
 from celery import Celery, bootsteps
 from . import app_config
+import socket
 
 
 class HostNameStep(bootsteps.StartStopStep):
-    hostname: str = "celery@%h"
+    worker_name: str = "celery@%h"
 
     def __init__(self, worker, **kwargs):
-        worker.hostname = "{}@worker".format(self.hostname)
+        hostname = socket.gethostname()
+        worker.hostname = "{}@{}".format(self.worker_name, hostname)
 
 
 class Worker(Celery):
@@ -22,7 +24,7 @@ class Worker(Celery):
         cls,
         node_name,
         app_name,
-        worker_queue_name : str = "asklora",
+        worker_queue_name: str = "asklora",
         tasks_modules: list[str] = [],
         broker_url: str = "pyamqp://rabbitmq:rabbitmq@localhost//",
         result_backend: str = "redis://localhost",
@@ -40,7 +42,7 @@ class Worker(Celery):
 
             baz/__init__.py
                 tasks.py
-        
+
 
         it will register all tasks in the tasks.py file in the directory.
         any function with decorator @celery.task will be regitered as a task.
