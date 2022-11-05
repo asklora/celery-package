@@ -1,4 +1,4 @@
-broker_url = "pyamqp://rabbitmq:rabbitmq@localhost//"
+broker_url = "amqp://rabbitmq:rabbitmq@localhost//"
 result_backend = "redis://localhost"
 task_serializer = "json"
 result_serializer = "json"

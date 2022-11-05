@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "workerconnector"
+version = "0.1.0"
+description = ""
+authors = ["redloratech <rede.akbar@loratechai.com>"]
+readme = "README.md"
+exclude = ["example"]
+[tool.poetry.dependencies]
+python = "^3.9"
+celery = {extras = ["redis"], version = "^5.2.7"}
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

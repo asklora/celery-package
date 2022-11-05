@@ -24,9 +24,9 @@ class Worker(Celery):
         cls,
         node_name,
         app_name,
-        worker_queue_name: str = "asklora",
+        worker_queue_name: str = "worker",
         tasks_modules: list[str] = [],
-        broker_url: str = "pyamqp://rabbitmq:rabbitmq@localhost//",
+        broker_url: str = "amqp://rabbitmq:rabbitmq@localhost//",
         result_backend: str = "redis://localhost",
     ) -> Celery:
         """

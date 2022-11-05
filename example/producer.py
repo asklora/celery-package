@@ -1,4 +1,4 @@
-from Connector import Worker
+from workerconnector import Worker
 
 
 producer = Worker.create('app-producer','producer')
